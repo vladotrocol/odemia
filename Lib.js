@@ -1,5 +1,6 @@
 /* Omnis Library */
 /* Copyright Vlad Otrocol */
+
 /*------------------------------------------------*/
 
 // Get Html Elements From Source
