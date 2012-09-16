@@ -3,113 +3,52 @@
 
 /*------------------------------------------------*/
 
-
-
-function  MainObj(){
-	this.init();
-	this.Nav = new CanvasObj(this.html.Nav, 0, 0, window.innerWidth, 100,
-	 "#00b");
-	this.Panel = new CanvasObj(this.html.Panel, 0, 100, window.innerWidth/3+1,
-	 window.innerHeight-100, "#aaa");
-	this.Map = new CanvasObj(this.html.Map, window.innerWidth/3, 100, 
-		window.innerWidth*2/3, window.innerHeight-100, "#fff");
-	this.Map.add_shape(new R(0, 0, 10, 10, "0f0"));
-	this.Map.add_shape(new C(400, 400, 100, "f00"));
-	this.Map.draw();
-
-};
-
-MainObj.prototype.alert = function(what){
-	alert(this[what]);
-};
-
-MainObj.prototype.initial_configuration = function(){
-	this.html = {
-		Nav: "Nav",
-		Panel: "Panel",
-		Map: "Map"
+// Main body object which runs general mechanics
+	function  MainObj(){
+		this.images = {};
+		this.init();
+		this.Nav = new CanvasObj(this.html.Nav, 0, 0, window.innerWidth, 100,
+	 		"#00b");
+		this.Panel = new CanvasObj(this.html.Panel, 0, 100, window.innerWidth/3+1,
+	 		window.innerHeight-100, "#aaa");
+		this.Map = new CanvasObj(this.html.Map, window.innerWidth/3, 100, 
+			window.innerWidth*2/3, window.innerHeight-100, "#fff");
+		this.Map.add_shape(new R(0, 0, 10, 10, "0f0"));
+		this.Map.add_shape(new C(400, 400, 100, "f00"));
+		this.Map.draw();
 	};
-	this.image_sources={
-			monkey: "monkey.png",
-			pikachu:"pikachu.png",
-			ninja: "ninja.png",
-			chuck: "chuck.png"
+
+// Display the value of a MainObj property
+	MainObj.prototype.alert = function(what){
+		alert(this[what]);
 	};
-	this.images = {};
-};
-MainObj.prototype.init = function(){
-	this.initial_configuration();
-	get_html(this.html);
-	load_images(this, this.image_sources, function(images){})
-};
 
-function CanvasObj(canvas, x, y, w, h, fill){
-	this.x = x||0;
-	this.y = y||0;
-	this.w = w||0;
-	this.h = h||0;
-	this.objects = [];
-	this.ctx =  context_for(canvas);
-	this.init(canvas, fill);
-};
+// Sets up the original values for external resources paths
+	MainObj.prototype.external_configuration = function(){
+		this.html = {
+			Nav: "Nav",
+			Panel: "Panel",
+			Map: "Map"
+		};
+		this.image_sources={
+				monkey: "monkey.png",
+				pikachu:"pikachu.png",
+				ninja: "ninja.png",
+				chuck: "chuck.png"
+		};
+	};
 
-CanvasObj.prototype.init = function(canvas, fill){
-	position_element(canvas, this.x, this.y);
-	resize_canvas(canvas, this.w, this.h);
-	draw_rect(this.ctx, 0, 0, this.w, this.h, fill);
-};
+// Initializes main body object	
+	MainObj.prototype.init = function(){
+		this.external_configuration();
+		get_html(this.html);
+		load_images(this, this.image_sources, function(images){})
+	};
 
-CanvasObj.prototype.add_shape = function(shape) {
-	this.objects.push(shape);
-};
+// Triggers when window loads
+	function viewDidLoad(){
+		var MM = new MainObj();
+	};
 
-CanvasObj.prototype.draw = function(){
-	for(var i=0; i<this.objects.length;i++){
-		this.objects[i].draw(this.ctx);
-	}
-};
-
-function R(x, y, w, h, fill){
-	this.x = x||0;
-	this.y = y||0;
-	this.w = w||0;
-	this.h = h||0;
-	this.fill = fill||"fff";
-	this.type = "rect";
-};
-
-R.prototype.draw = function(ctx){
-	draw_rect(ctx, this.x, this.y, this.w, this.h, this.fill);
-};
-
-function C(x, y, r, fill){
-	this.x = x||0;
-	this.y = y||0;
-	this.r = r||0;
-	this.fill = fill||"#fff";
-	this.type = "circle";
-};
-
-C.prototype.draw = function(ctx){
-	draw_circle(ctx, this.x, this.y, this.r, this.fill);
-};
-
-function I(x, y, w, h, name){
-	this.x = x||0;
-	this.y = y||0;
-	this.w = w||0;
-	this.h = h||0;
-	this.name = name||"";
-	this.type = "image";
-};
-
-I.prototype.draw = function(ctx){
-	ctx.drawImage(this.x, this.y, this.w, this.h);
-};
-
-
-function viewDidLoad(){
-	var MM = new MainObj();
-};
-
-window.onload = viewDidLoad;
+// Listeners
+	window.onload = viewDidLoad;
