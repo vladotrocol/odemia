@@ -64,3 +64,21 @@
 		ctx.fillStyle = fill;
 		ctx.fill();
 	};
+
+	// Load all images from sources
+	function load_images(mainObj, sources, callback){
+		var loadedImages = 0;
+		var numImages = 0;
+		for (var src in sources) {
+			numImages++;
+		}
+		for (var src in sources) {
+			mainObj.images[src] = new Image();
+			mainObj.images[src].onload = function(){
+				if (++loadedImages >= numImages) {
+					callback(mainObj.images);
+				}
+			};
+			mainObj.images[src].src = sources[src];
+		}
+	}

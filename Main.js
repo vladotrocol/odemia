@@ -6,7 +6,7 @@
 
 
 function  MainObj(){
-	this.init_html();
+	this.init();
 	this.Nav = new CanvasObj(this.html.Nav, 0, 0, window.innerWidth, 100,
 	 "#00b");
 	this.Panel = new CanvasObj(this.html.Panel, 0, 100, window.innerWidth/3+1,
@@ -23,21 +23,24 @@ MainObj.prototype.alert = function(what){
 	alert(this[what]);
 };
 
-MainObj.prototype.initial_configuration(){
+MainObj.prototype.initial_configuration = function(){
 	this.html = {
 		Nav: "Nav",
 		Panel: "Panel",
 		Map: "Map"
 	};
-	this.image_sources:{
+	this.image_sources={
 			monkey: "monkey.png",
 			pikachu:"pikachu.png",
 			ninja: "ninja.png",
 			chuck: "chuck.png"
-		}
+	};
+	this.images = {};
 };
-MainObj.prototype.init_html = function(){
+MainObj.prototype.init = function(){
+	this.initial_configuration();
 	get_html(this.html);
+	load_images(this, this.image_sources, function(images){})
 };
 
 function CanvasObj(canvas, x, y, w, h, fill){
@@ -91,7 +94,18 @@ C.prototype.draw = function(ctx){
 	draw_circle(ctx, this.x, this.y, this.r, this.fill);
 };
 
+function I(x, y, w, h, name){
+	this.x = x||0;
+	this.y = y||0;
+	this.w = w||0;
+	this.h = h||0;
+	this.name = name||"";
+	this.type = "image";
+};
 
+I.prototype.draw = function(ctx){
+	ctx.drawImage(this.x, this.y, this.w, this.h);
+};
 
 
 function viewDidLoad(){
