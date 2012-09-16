@@ -82,3 +82,17 @@
 			mainObj.images[src].src = sources[src];
 		}
 	};
+
+//Get Mouse Position Whithin Layer(Canvas)
+	function getMouse(e) {
+		var x, y;
+		if (e.layerX || e.layerY) {
+			x = e.layerX;
+			y = e.layerY;
+		}
+		else {
+			x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+			y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+		}				
+		return {x:x, y:y};
+	};
