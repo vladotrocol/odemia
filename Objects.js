@@ -34,15 +34,33 @@
 
 // Image shape
 	// Constructor
-		function I(x, y, w, h, name){
+		function I(x, y, w, h, img){
 			this.x = x||0;
 			this.y = y||0;
 			this.w = w||0;
 			this.h = h||0;
-			this.name = name||"";
+			this.img = img||null;
 			this.type = "image";
 		};
-	// Draw Image
+	// Draw image
 	I.prototype.draw = function(ctx){
-		ctx.drawImage(this.x, this.y, this.w, this.h);
+		ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 	};
+
+// Text shape
+	// Constructor
+		function T(x, y, size, text){
+			this.x = x||0;
+			this.y = y||0;
+			this.size = size||0;
+			this.text = text||"";
+			this.type = "text";
+		};
+
+	// Draw text
+		T.prototype.draw=function(ctx){
+		ctx.fillStyle    = '#ff0000';
+		ctx.font         = "italic "+ this.size +"px sans-serif";
+		ctx.textBaseline = 'top';
+		ctx.fillText  (this.text,this.x, this.y);
+	}

@@ -13,8 +13,6 @@
 	 		window.innerHeight-100, "#aaa");
 		this.Map = new CanvasObj(this.html.Map, window.innerWidth/3, 100, 
 			window.innerWidth*2/3, window.innerHeight-100, "#fff");
-		this.Map.add_shape(new R(0, 0, 10, 10, "0f0"));
-		this.Map.add_shape(new C(400, 400, 100, "f00"));
 		this.Map.draw();
 	};
 
