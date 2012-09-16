@@ -1,4 +1,4 @@
-/* Omnis Library */
+/* Odemia Library */
 /* Copyright Vlad Otrocol */
 
 /*------------------------------------------------*/
