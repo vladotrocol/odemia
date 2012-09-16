@@ -10,6 +10,24 @@
 		}
 	};
 
+// Load all images from sources
+	function load_images(sources, callback){
+		var loadedImages = 0;
+		var numImages = 0;
+		for (var src in sources) {
+			numImages++;
+		}
+		for (var src in sources) {
+			global.images[src] = new Image();
+			global.images[src].onload = function(){
+				if (++loadedImages >= numImages) {
+					callback(global.images);
+				}
+			};
+			global.images[src].src = sources[src];
+		}
+	};
+
 // Resize Canvas
 	function resize_canvas(canvas, w, h){
 		canvas.height = h;
@@ -38,10 +56,11 @@
 		ctx.fillRect(x, y, w, h);
 	};
 
-// Style Canvas
-	function style_canvas(main, which, x, y, w, h){
-		var canvas = main.html["canvas"+which];
-		resize_canvas(canvas, w, h);
-		main[which+"Ctx"] = context_for(canvas);
-		position_element(canvas, 0, 0);
+// Draw Circle
+	function draw_circle(ctx, x, y, r, fill){
+		ctx.beginPath();
+		ctx.arc(x, y, r, 0, 2*Math.PI, false);
+		ctx.closePath();
+		ctx.fillStyle = fill;
+		ctx.fill();
 	};
