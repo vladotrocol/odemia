@@ -2,3 +2,11 @@
 /* Copyright Vlad Otrocol */
 
 /*------------------------------------------------*/
+
+function  MainObj(){
+
+};
+
+function CanvasObj(){
+
+}
