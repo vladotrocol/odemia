@@ -13,7 +13,6 @@
 	 		window.innerHeight-100, "#aaa");
 		this.Map = new CanvasObj(this.html.Map, window.innerWidth/3, 100, 
 			window.innerWidth*2/3, window.innerHeight-100, "#fff");
-		this.Map.draw();
 	};
 
 // Display the value of a MainObj property
@@ -48,5 +47,5 @@
 		var MM = new MainObj();
 	};
 
-// Listeners
+// Main Listeners
 	window.onload = viewDidLoad;
